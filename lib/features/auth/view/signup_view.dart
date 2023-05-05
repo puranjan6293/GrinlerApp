@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:grinler/common/common.dart';
 import 'package:grinler/constants/constants.dart';
 import 'package:grinler/features/auth/controllers/auth_controller.dart';
@@ -47,12 +48,43 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
       appBar: appbar,
       body: isLoading
           ? const Loader()
-          : Center(
-              child: SingleChildScrollView(
+          : SingleChildScrollView(
+              child: Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
+                      const SizedBox(
+                        height: 5.0,
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Let’s get started .',
+                          style: GoogleFonts.inter(
+                            color: const Color(0xffffffff),
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'India’s first \nSocial Meme platform ',
+                          style: GoogleFonts.inter(
+                            color: const Color(0xffffffff).withOpacity(0.5),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 55.0,
+                      ),
                       AuthField(
                         controller: emailController,
                         hintText: "Email",

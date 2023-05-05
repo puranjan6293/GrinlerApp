@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grinler/common/loading_page.dart';
 import 'package:grinler/features/auth/controllers/auth_controller.dart';
-import 'package:grinler/features/auth/view/signup_view.dart';
+import 'package:grinler/features/auth/view/landing_page.dart';
 import 'package:grinler/features/home/view/home_view.dart';
 import 'package:grinler/theme/theme.dart';
 
@@ -17,6 +17,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Grinler',
       theme: AppTheme.theme,
       home: ref.watch(currentUserAccountProvider).when(
@@ -24,7 +25,8 @@ class MyApp extends ConsumerWidget {
               if (user != null) {
                 return const HomeView();
               }
-              return const SignUpView();
+              // return const SignUpView();
+              return const LandingPage();
             },
             error: (error, st) {
               return null;

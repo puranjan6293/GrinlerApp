@@ -44,7 +44,7 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
   }
 
   void onPickImages() async {
-    await pickImage();
+    images = await pickImages();
     setState(() {});
   }
 

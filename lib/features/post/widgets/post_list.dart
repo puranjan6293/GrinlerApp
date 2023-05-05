@@ -13,8 +13,6 @@ class PostList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(getPostsProvider).when(
           data: (posts) {
-            // any time we get data
-            // new post will be added
             return ref.watch(getLatestPostProvider).when(
                   data: (data) {
                     if (data.events.contains(
@@ -53,7 +51,6 @@ class PostList extends ConsumerWidget {
                     error: error.toString(),
                   ),
                   loading: () {
-                    // as long its loading show a list view builder
                     return ListView.builder(
                       itemCount: posts.length,
                       itemBuilder: (BuildContext context, int index) {

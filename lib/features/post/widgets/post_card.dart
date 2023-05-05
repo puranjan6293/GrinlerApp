@@ -53,7 +53,7 @@ class PostCard extends ConsumerWidget {
                               },
                               child: CircleAvatar(
                                 backgroundImage: NetworkImage(user.profilePic),
-                                radius: 35,
+                                radius: 30,
                               ),
                             ),
                           ),
@@ -96,7 +96,7 @@ class PostCard extends ConsumerWidget {
                                       ),
                                     ),
                                     Text(
-                                      '@${user.name} . ${timeago.format(
+                                      '@${user.name.substring(0, 3)} . ${timeago.format(
                                         post.postedAt,
                                         locale: 'en_short',
                                       )}',

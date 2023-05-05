@@ -12,7 +12,9 @@ import 'package:grinler/model/user_model.dart';
 final authControllerProvider =
     StateNotifierProvider<AuthController, bool>((ref) {
   return AuthController(
-      authAPI: ref.watch(authAPIProvider), userAPI: ref.watch(userAPIProvider));
+    authAPI: ref.watch(authAPIProvider),
+    userAPI: ref.watch(userAPIProvider),
+  );
 });
 
 final currentUserDetailsProvider = FutureProvider((ref) async {
@@ -22,13 +24,13 @@ final currentUserDetailsProvider = FutureProvider((ref) async {
 });
 
 final UserDetailsProvider = FutureProvider.family((ref, String uid) async {
-  final AuthController = ref.watch(authControllerProvider.notifier);
-  return AuthController.getUserData(uid);
+  final authController = ref.watch(authControllerProvider.notifier);
+  return authController.getUserData(uid);
 });
 
 final currentUserAccountProvider = FutureProvider((ref) {
-  final AuthController = ref.watch(authControllerProvider.notifier);
-  return AuthController.currentUser();
+  final authController = ref.watch(authControllerProvider.notifier);
+  return authController.currentUser();
 });
 
 class AuthController extends StateNotifier<bool> {
@@ -49,7 +51,10 @@ class AuthController extends StateNotifier<bool> {
     required BuildContext context,
   }) async {
     state = true;
-    final res = await _authAPI.signUp(email: email, password: password);
+    final res = await _authAPI.signUp(
+      email: email,
+      password: password,
+    );
     state = false;
     res.fold((l) => showSnackBar(context, l.message), (r) async {
       UserModel userModel = UserModel(
@@ -78,7 +83,10 @@ class AuthController extends StateNotifier<bool> {
     required BuildContext context,
   }) async {
     state = true;
-    final res = await _authAPI.login(email: email, password: password);
+    final res = await _authAPI.login(
+      email: email,
+      password: password,
+    );
     state = false;
     res.fold(
       (l) => showSnackBar(context, l.message),

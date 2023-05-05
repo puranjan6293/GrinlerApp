@@ -30,6 +30,13 @@ class _HomeViewState extends State<HomeView> {
     Navigator.push(context, CreatePostScreen.route());
   }
 
+  //added by puranjan
+  // @override
+  // void initState() {
+  //   setState(() {});
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -13,14 +13,22 @@ import 'package:grinler/features/notifications/controller/notification_controlle
 import 'package:grinler/model/post_model.dart';
 import 'package:grinler/model/user_model.dart';
 
-final postControllerProvider =
-    StateNotifierProvider<PostController, bool>((ref) {
-  return PostController(
-    ref: ref,
-    postAPI: ref.watch(postAPIProvider),
-    storageAPI: ref.watch(storageAPIProvider),
-    notificationController: ref.watch(notificationControllerProvider.notifier),
-  );
+final postControllerProvider = StateNotifierProvider<PostController, bool>(
+  (ref) {
+    return PostController(
+      ref: ref,
+      postAPI: ref.watch(postAPIProvider),
+      storageAPI: ref.watch(storageAPIProvider),
+      notificationController:
+          ref.watch(notificationControllerProvider.notifier),
+    );
+  },
+);
+
+//I removed: .autoDispose
+final getPostsProvider = FutureProvider.autoDispose((ref) {
+  final postController = ref.watch(postControllerProvider.notifier);
+  return postController.getPosts();
 });
 
 final getRepliesToPostsProvider = FutureProvider.family((ref, Post post) {
@@ -28,11 +36,7 @@ final getRepliesToPostsProvider = FutureProvider.family((ref, Post post) {
   return postController.getRepliesToPost(post);
 });
 
-final getPostsProvider = FutureProvider.autoDispose((ref) {
-  final postController = ref.watch(postControllerProvider.notifier);
-  return postController.getPosts();
-});
-
+//I removed: .autoDispose
 final getLatestPostProvider = StreamProvider.autoDispose((ref) {
   final postAPI = ref.watch(postAPIProvider);
   return postAPI.getLatestPost();
