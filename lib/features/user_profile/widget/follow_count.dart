@@ -14,7 +14,7 @@ class FollowCount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double fontSize = 18;
-    return Row(
+    return Column(
       children: [
         Text(
           '$count',
@@ -26,12 +26,16 @@ class FollowCount extends StatelessWidget {
         const SizedBox(
           width: 3,
         ),
-        Text(
-          text,
-          style: TextStyle(
+        Opacity(
+          opacity: 0.5,
+          child: Text(
+            text,
+            style: TextStyle(
               color: Pallete.whiteColor,
               fontSize: fontSize,
-              fontWeight: FontWeight.bold),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ],
     );

@@ -32,24 +32,35 @@ class UserProfile extends ConsumerWidget {
                   flexibleSpace: Stack(
                     children: [
                       Positioned.fill(
-                          child: user.bannerPic.isEmpty
-                              ? Container(
-                                  color: Pallete.blueColor,
-                                )
-                              : Image.network(
-                                  user.bannerPic,
-                                  fit: BoxFit.fitWidth,
-                                )),
+                        child: user.bannerPic.isEmpty
+                            ? Container(
+                                color: Pallete.blueColor,
+                              )
+                            : Image.network(
+                                user.bannerPic,
+                                fit: BoxFit.fitWidth,
+                              ),
+                      ),
                       Positioned(
                         bottom: 0,
+                        left: 0,
+                        right: 0,
                         child: CircleAvatar(
-                          backgroundImage: NetworkImage(user.profilePic),
                           radius: 45,
+                          foregroundImage: NetworkImage(
+                            user.profilePic,
+                          ),
+                          backgroundImage: NetworkImage(
+                            user.profilePic,
+                          ),
+                          backgroundColor: Colors.transparent,
+                          child: const SizedBox(),
                         ),
                       ),
                       Container(
-                        alignment: Alignment.bottomRight,
-                        margin: const EdgeInsets.all(20),
+                        alignment: Alignment.topRight,
+                        margin: const EdgeInsets.only(top: 20, right: 10),
+                        //!Follow condition
                         child: OutlinedButton(
                           onPressed: () {
                             if (currentUser.uid == user.uid) {
@@ -91,33 +102,50 @@ class UserProfile extends ConsumerWidget {
                   sliver: SliverList(
                     delegate: SliverChildListDelegate(
                       [
-                        Text(
-                          user.name,
-                          style: const TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            user.name,
+                            style: const TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold),
+                          ),
                         ),
-                        Text(
-                          '@${user.name}',
-                          style: const TextStyle(
-                              fontSize: 20, color: Pallete.greyColor),
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            '@${user.name}',
+                            style: const TextStyle(
+                                fontSize: 20, color: Pallete.greyColor),
+                          ),
                         ),
-                        Text(
-                          user.bio,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Opacity(
+                            opacity: 1.0,
+                            child: Text(
+                              user.bio,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                         const SizedBox(height: 10),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             FollowCount(
-                                count: user.following.length - 1,
-                                text: 'Following'),
-                            const SizedBox(width: 15),
+                              count: user.following.length,
+                              text: 'Following',
+                            ),
                             FollowCount(
-                                count: user.followers.length - 1,
-                                text: 'Followers')
+                              count: user.followers.length,
+                              text: 'Followers',
+                            ),
                           ],
                         ),
                         const SizedBox(height: 15),
@@ -173,14 +201,12 @@ class UserProfile extends ConsumerWidget {
                             }
                           }
 
-                          return Expanded(
-                            child: ListView.builder(
-                              itemCount: posts.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final post = posts[index];
-                                return PostCard(post: post);
-                              },
-                            ),
+                          return ListView.builder(
+                            itemCount: posts.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final post = posts[index];
+                              return PostCard(post: post);
+                            },
                           );
                         },
                         error: (error, stackTrace) => ErrorText(
@@ -188,14 +214,12 @@ class UserProfile extends ConsumerWidget {
                         ),
                         loading: () {
                           // as long its loading show a list view builder
-                          return Expanded(
-                            child: ListView.builder(
-                              itemCount: posts.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final post = posts[index];
-                                return PostCard(post: post);
-                              },
-                            ),
+                          return ListView.builder(
+                            itemCount: posts.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final post = posts[index];
+                              return PostCard(post: post);
+                            },
                           );
                         },
                       );
