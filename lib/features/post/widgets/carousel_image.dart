@@ -27,12 +27,18 @@ class _CarouselImageState extends State<CarouselImage> {
                 (link) {
                   return Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    margin: const EdgeInsets.all(10),
-                    child: Image.network(
-                      link,
-                      fit: BoxFit.contain,
+                    margin: const EdgeInsets.all(5),
+                    width: MediaQuery.of(context).size.width -
+                        35, // set the width to the width of the screen
+                    height: 450, // set the height to half of the screen height
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        link,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   );
                 },

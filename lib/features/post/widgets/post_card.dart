@@ -82,7 +82,8 @@ class PostCard extends ConsumerWidget {
                                       )
                                     ],
                                   ),
-                                Row(
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
                                       margin: const EdgeInsets.only(
@@ -95,15 +96,21 @@ class PostCard extends ConsumerWidget {
                                             fontSize: 19),
                                       ),
                                     ),
-                                    Text(
-                                      '@${user.name.substring(0, 3)} . ${timeago.format(
-                                        post.postedAt,
-                                        locale: 'en_short',
-                                      )}',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Pallete.greyColor,
-                                          fontSize: 17),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '@${user.name} . ${timeago.format(
+                                            post.postedAt,
+                                            locale: 'en_short',
+                                          )}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Pallete.greyColor,
+                                              fontSize: 17),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -113,142 +120,246 @@ class PostCard extends ConsumerWidget {
                                       .watch(
                                           getPostByIdProvider(post.repliedTo))
                                       .when(
-                                          data: (repliedToPost) {
-                                            final replyingToUser = ref
-                                                .watch(UserDetailsProvider(
-                                                    repliedToPost.uid))
-                                                .value;
-                                            return RichText(
-                                              text: TextSpan(
-                                                text: 'Replying to',
-                                                style: const TextStyle(
-                                                    color: Pallete.greyColor,
-                                                    fontSize: 16),
-                                                children: [
-                                                  TextSpan(
-                                                    text:
-                                                        ' @${replyingToUser?.name}',
-                                                    style: const TextStyle(
-                                                      color: Pallete.blueColor,
-                                                      fontSize: 16,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                          error: (error, st) => ErrorText(
-                                              error: error.toString()),
-                                          loading: () => const SizedBox()),
-
-                                HashtagText(text: post.text),
-                                if (post.postType == PostType.image)
-                                  CarouselImage(imageLinks: post.imageLinks),
-                                if (post.link.isNotEmpty) ...[
-                                  const SizedBox(height: 4),
-                                  AnyLinkPreview(
-                                    displayDirection:
-                                        UIDirection.uiDirectionHorizontal,
-                                    link: 'https://${post.link}',
-                                  ),
-                                ],
-                                Container(
-                                  margin: const EdgeInsets.only(
-                                    top: 10,
-                                    right: 20,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      // PostIconButton(
-                                      //   pathName: AssetsConstants.viewsIcon,
-                                      //   text: (post.commentIds.length +
-                                      //           post.reshareCount +
-                                      //           post.likes.length)
-                                      //       .toString(),
-                                      //   onTap: () {},
-                                      // ),
-                                      PostIconButton(
-                                        pathName: AssetsConstants.commentIcon,
-                                        text: post.commentIds.length.toString(),
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            GrinlerReplyScreen.route(post),
-                                          );
-                                        },
-                                      ),
-                                      PostIconButton(
-                                        pathName: AssetsConstants.repostIcon,
-                                        text: post.reshareCount.toString(),
-                                        onTap: () {
-                                          ref
-                                              .read(postControllerProvider
-                                                  .notifier)
-                                              .resharePost(
-                                                post,
-                                                currentUser,
-                                                context,
-                                              );
-                                        },
-                                      ),
-                                      LikeButton(
-                                        size: 25,
-                                        onTap: (isLiked) async {
-                                          ref
-                                              .read(postControllerProvider
-                                                  .notifier)
-                                              .likePost(
-                                                post,
-                                                currentUser,
-                                              );
-                                          return !isLiked;
-                                        },
-                                        isLiked: post.likes
-                                            .contains(currentUser.uid),
-                                        likeBuilder: (isLiked) {
-                                          return isLiked
-                                              ? SvgPicture.asset(
-                                                  AssetsConstants
-                                                      .likeFilledIcon,
-                                                  color: Pallete.redColor,
-                                                )
-                                              : SvgPicture.asset(
-                                                  AssetsConstants
-                                                      .likeOutlinedIcon,
+                                        data: (repliedToPost) {
+                                          final replyingToUser = ref
+                                              .watch(UserDetailsProvider(
+                                                  repliedToPost.uid))
+                                              .value;
+                                          return RichText(
+                                            text: TextSpan(
+                                              text: 'Replying to',
+                                              style: const TextStyle(
                                                   color: Pallete.greyColor,
-                                                );
-                                        },
-                                        likeCount: post.likes.length,
-                                        countBuilder:
-                                            (likeCount, isLiked, text) {
-                                          return Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 2.0),
-                                            child: Text(
-                                              text,
-                                              style: TextStyle(
-                                                color: isLiked
-                                                    ? Pallete.redColor
-                                                    : Pallete.whiteColor,
-                                                fontSize: 16,
-                                              ),
+                                                  fontSize: 16),
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      ' @${replyingToUser?.name}',
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 15,
+                                                  ),
+                                                )
+                                              ],
                                             ),
                                           );
                                         },
+                                        error: (error, st) => ErrorText(
+                                          error: error.toString(),
+                                        ),
+                                        loading: () => const SizedBox(),
                                       ),
 
-                                      //Save meme
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(height: 1),
+                                //!Puranjan changed the ui
+                                // HashtagText(text: post.text),
+
+                                // if (post.postType == PostType.image)
+                                //   CarouselImage(imageLinks: post.imageLinks),
+                                // if (post.link.isNotEmpty) ...[
+                                //   const SizedBox(height: 4),
+                                //   AnyLinkPreview(
+                                //     displayDirection:
+                                //         UIDirection.uiDirectionHorizontal,
+                                //     link: 'https://${post.link}',
+                                //   ),
+                                // ],
+                                // Container(
+                                //   margin: const EdgeInsets.only(
+                                //     top: 10,
+                                //     right: 20,
+                                //   ),
+                                //   child: Row(
+                                //     mainAxisAlignment:
+                                //         MainAxisAlignment.spaceBetween,
+                                //     children: [
+                                //       // PostIconButton(
+                                //       //   pathName: AssetsConstants.viewsIcon,
+                                //       //   text: (post.commentIds.length +
+                                //       //           post.reshareCount +
+                                //       //           post.likes.length)
+                                //       //       .toString(),
+                                //       //   onTap: () {},
+                                //       // ),
+                                //       PostIconButton(
+                                //         pathName: AssetsConstants.commentIcon,
+                                //         text: post.commentIds.length.toString(),
+                                //         onTap: () {
+                                //           Navigator.push(
+                                //             context,
+                                //             GrinlerReplyScreen.route(post),
+                                //           );
+                                //         },
+                                //       ),
+                                //       PostIconButton(
+                                //         pathName: AssetsConstants.repostIcon,
+                                //         text: post.reshareCount.toString(),
+                                //         onTap: () {
+                                //           ref
+                                //               .read(postControllerProvider
+                                //                   .notifier)
+                                //               .resharePost(
+                                //                 post,
+                                //                 currentUser,
+                                //                 context,
+                                //               );
+                                //         },
+                                //       ),
+                                //       LikeButton(
+                                //         size: 25,
+                                //         onTap: (isLiked) async {
+                                //           ref
+                                //               .read(postControllerProvider
+                                //                   .notifier)
+                                //               .likePost(
+                                //                 post,
+                                //                 currentUser,
+                                //               );
+                                //           return !isLiked;
+                                //         },
+                                //         isLiked: post.likes
+                                //             .contains(currentUser.uid),
+                                //         likeBuilder: (isLiked) {
+                                //           return isLiked
+                                //               ? SvgPicture.asset(
+                                //                   AssetsConstants
+                                //                       .likeFilledIcon,
+                                //                   color: Pallete.redColor,
+                                //                 )
+                                //               : SvgPicture.asset(
+                                //                   AssetsConstants
+                                //                       .likeOutlinedIcon,
+                                //                   color: Pallete.greyColor,
+                                //                 );
+                                //         },
+                                //         likeCount: post.likes.length,
+                                //         countBuilder:
+                                //             (likeCount, isLiked, text) {
+                                //           return Padding(
+                                //             padding: const EdgeInsets.only(
+                                //                 left: 2.0),
+                                //             child: Text(
+                                //               text,
+                                //               style: TextStyle(
+                                //                 color: isLiked
+                                //                     ? Pallete.redColor
+                                //                     : Pallete.whiteColor,
+                                //                 fontSize: 16,
+                                //               ),
+                                //             ),
+                                //           );
+                                //         },
+                                //       ),
+
+                                //       //Save meme
+                                //     ],
+                                //   ),
+                                // ),
+                                // const SizedBox(height: 1),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
+                      //! Puranjan added here
+                      Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 20.0,
+                            ),
+                            child: HashtagText(text: post.text),
+                          )),
+                      if (post.postType == PostType.image)
+                        CarouselImage(imageLinks: post.imageLinks),
+                      if (post.link.isNotEmpty) ...[
+                        const SizedBox(height: 4),
+                        AnyLinkPreview(
+                          displayDirection: UIDirection.uiDirectionHorizontal,
+                          link: 'https://${post.link}',
+                        ),
+                      ],
+                      Container(
+                        margin:
+                            const EdgeInsets.only(top: 10, right: 30, left: 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // PostIconButton(
+                            //   pathName: AssetsConstants.viewsIcon,
+                            //   text: (post.commentIds.length +
+                            //           post.reshareCount +
+                            //           post.likes.length)
+                            //       .toString(),
+                            //   onTap: () {},
+                            // ),
+                            PostIconButton(
+                              pathName: AssetsConstants.commentIcon,
+                              text: post.commentIds.length.toString(),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  GrinlerReplyScreen.route(post),
+                                );
+                              },
+                            ),
+                            PostIconButton(
+                              pathName: AssetsConstants.repostIcon,
+                              text: post.reshareCount.toString(),
+                              onTap: () {
+                                ref
+                                    .read(postControllerProvider.notifier)
+                                    .resharePost(
+                                      post,
+                                      currentUser,
+                                      context,
+                                    );
+                              },
+                            ),
+                            LikeButton(
+                              size: 25,
+                              onTap: (isLiked) async {
+                                ref
+                                    .read(postControllerProvider.notifier)
+                                    .likePost(
+                                      post,
+                                      currentUser,
+                                    );
+                                return !isLiked;
+                              },
+                              isLiked: post.likes.contains(currentUser.uid),
+                              likeBuilder: (isLiked) {
+                                return isLiked
+                                    ? SvgPicture.asset(
+                                        AssetsConstants.likeFilledIcon,
+                                        color: Pallete.redColor,
+                                      )
+                                    : SvgPicture.asset(
+                                        AssetsConstants.likeOutlinedIcon,
+                                        color: Pallete.greyColor,
+                                      );
+                              },
+                              likeCount: post.likes.length,
+                              countBuilder: (likeCount, isLiked, text) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(left: 2.0),
+                                  child: Text(
+                                    text,
+                                    style: TextStyle(
+                                      color: isLiked
+                                          ? Pallete.redColor
+                                          : Pallete.whiteColor,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+
+                            //Save meme
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 1),
                       const Divider(
                         color: Pallete.greyColor,
                       ),
