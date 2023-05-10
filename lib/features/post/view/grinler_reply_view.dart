@@ -21,7 +21,7 @@ class GrinlerReplyScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text("Post"),
       ),
-      body: Column(
+      body: Wrap(
         children: [
           PostCard(post: post),
           ref.watch(getRepliesToPostsProvider(post)).when(
@@ -70,14 +70,12 @@ class GrinlerReplyScreen extends ConsumerWidget {
                             }
                           }
 
-                          return Expanded(
-                            child: ListView.builder(
-                              itemCount: posts.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final post = posts[index];
-                                return PostCard(post: post);
-                              },
-                            ),
+                          return ListView.builder(
+                            itemCount: posts.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final post = posts[index];
+                              return PostCard(post: post);
+                            },
                           );
                         },
                         error: (error, stackTrace) => ErrorText(
@@ -85,14 +83,12 @@ class GrinlerReplyScreen extends ConsumerWidget {
                         ),
                         loading: () {
                           // as long its loading show a list view builder
-                          return Expanded(
-                            child: ListView.builder(
-                              itemCount: posts.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final post = posts[index];
-                                return PostCard(post: post);
-                              },
-                            ),
+                          return ListView.builder(
+                            itemCount: posts.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final post = posts[index];
+                              return PostCard(post: post);
+                            },
                           );
                         },
                       );

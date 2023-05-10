@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grinler/common/common.dart';
+import 'package:grinler/common/roundedButtom_auth.dart';
 import 'package:grinler/constants/constants.dart';
 import 'package:grinler/features/auth/controllers/auth_controller.dart';
 import 'package:grinler/features/auth/view/login_view.dart';
@@ -22,7 +25,10 @@ class SignUpView extends ConsumerStatefulWidget {
 class _SignUpViewState extends ConsumerState<SignUpView> {
   // appbar constant
   // will not render every time
-  final appbar = UIConstants.appBar();
+
+  //!not using for this screen
+  // final appbar = UIConstants.appBar();
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -45,7 +51,20 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
   Widget build(BuildContext context) {
     final isLoading = ref.watch(authControllerProvider);
     return Scaffold(
-      appBar: appbar,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(CupertinoIcons.arrow_turn_up_left),
+        ),
+        title: SvgPicture.asset(
+          AssetsConstants.appLogo,
+          color: Pallete.blueColor,
+          height: 40,
+        ),
+        centerTitle: true,
+      ),
       body: isLoading
           ? const Loader()
           : SingleChildScrollView(
@@ -90,19 +109,11 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                         hintText: "Email",
                       ),
                       const SizedBox(
-                        height: 25,
+                        height: 30,
                       ),
                       AuthField(
                         controller: passwordController,
                         hintText: "Password",
-                      ),
-                      const SizedBox(height: 40),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: RoundedButton(
-                          onTap: onSignUp,
-                          label: "Signup",
-                        ),
                       ),
                       const SizedBox(height: 40),
                       RichText(
@@ -127,6 +138,16 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                                 },
                             ),
                           ],
+                        ),
+                      ),
+                      const SizedBox(height: 36),
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: AuthRoundedButton(
+                          backgroundColor: Colors.white.withOpacity(0.001),
+                          onTap: onSignUp,
+                          label: "Signup",
+                          textColor: Colors.white,
                         ),
                       ),
                     ],

@@ -67,22 +67,34 @@ class _HomeViewState extends State<HomeView> {
               color: Pallete.whiteColor,
             ),
           ),
+
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               AssetsConstants.searchIcon,
               color: Pallete.whiteColor,
             ),
           ),
+          const BottomNavigationBarItem(
+            icon: Icon(
+              Icons.add_circle_outline_sharp,
+              color: Colors.white,
+            ),
+          ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              _page == 2
+              _page == 3
                   ? AssetsConstants.notifFilledIcon
                   : AssetsConstants.notifOutlinedIcon,
               color: Pallete.whiteColor,
             ),
           ),
-
           // Add profile navigation
+          const BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person_3_outlined,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
     );

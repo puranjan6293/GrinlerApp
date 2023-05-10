@@ -37,7 +37,7 @@ class _CarouselImageState extends State<CarouselImage> {
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
                         link,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   );

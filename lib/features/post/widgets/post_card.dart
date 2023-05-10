@@ -284,14 +284,14 @@ class PostCard extends ConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            // PostIconButton(
-                            //   pathName: AssetsConstants.viewsIcon,
-                            //   text: (post.commentIds.length +
-                            //           post.reshareCount +
-                            //           post.likes.length)
-                            //       .toString(),
-                            //   onTap: () {},
-                            // ),
+                            PostIconButton(
+                              pathName: AssetsConstants.viewsIcon,
+                              text: (post.commentIds.length +
+                                      post.reshareCount +
+                                      post.likes.length)
+                                  .toString(),
+                              onTap: () {},
+                            ),
                             PostIconButton(
                               pathName: AssetsConstants.commentIcon,
                               text: post.commentIds.length.toString(),

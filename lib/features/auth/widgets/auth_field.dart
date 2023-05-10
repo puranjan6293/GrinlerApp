@@ -14,14 +14,14 @@ class AuthField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(25),
           borderSide: const BorderSide(
             color: Pallete.blueColor,
             width: 2,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(25),
           borderSide: const BorderSide(
             color: Pallete.greyColor,
           ),
