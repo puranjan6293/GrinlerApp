@@ -41,20 +41,11 @@ class UserProfile extends ConsumerWidget {
                                 fit: BoxFit.fitWidth,
                               ),
                       ),
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
+                      Align(
+                        alignment: Alignment.bottomCenter,
                         child: CircleAvatar(
+                          backgroundImage: NetworkImage(user.profilePic),
                           radius: 45,
-                          foregroundImage: NetworkImage(
-                            user.profilePic,
-                          ),
-                          backgroundImage: NetworkImage(
-                            user.profilePic,
-                          ),
-                          backgroundColor: Colors.transparent,
-                          child: const SizedBox(),
                         ),
                       ),
                       Container(

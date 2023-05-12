@@ -25,7 +25,6 @@ final postControllerProvider = StateNotifierProvider<PostController, bool>(
   },
 );
 
-//I removed: .autoDispose
 final getPostsProvider = FutureProvider.autoDispose((ref) {
   final postController = ref.watch(postControllerProvider.notifier);
   return postController.getPosts();
@@ -36,7 +35,6 @@ final getRepliesToPostsProvider = FutureProvider.family((ref, Post post) {
   return postController.getRepliesToPost(post);
 });
 
-//I removed: .autoDispose
 final getLatestPostProvider = StreamProvider.autoDispose((ref) {
   final postAPI = ref.watch(postAPIProvider);
   return postAPI.getLatestPost();
