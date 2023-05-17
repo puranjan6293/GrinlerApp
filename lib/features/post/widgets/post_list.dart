@@ -51,6 +51,9 @@ class PostList extends ConsumerWidget {
                     error: error.toString(),
                   ),
                   loading: () {
+                    // if (posts == null) {
+                    //   return const CircularProgressIndicator();
+                    // }
                     return ListView.builder(
                       itemCount: posts.length,
                       itemBuilder: (BuildContext context, int index) {

@@ -31,9 +31,9 @@ class _CarouselImageState extends State<CarouselImage> {
                     ),
                     margin: const EdgeInsets.all(5),
                     // width: Image.network(link).width,
-                    width: MediaQuery.of(context).size.width -
-                        35, // set the width to the width of the screen
-                    height: 500, // set the height to half of the screen height
+                    //width: MediaQuery.of(context).size.width -
+                    //35, // set the width to the width of the screen
+                    //height: 500, // set the height to half of the screen height
                     // height: Image.network(link).height,
 
                     child: ClipRRect(
@@ -47,6 +47,7 @@ class _CarouselImageState extends State<CarouselImage> {
                 },
               ).toList(),
               options: CarouselOptions(
+                aspectRatio: 1 / 1,
                 viewportFraction: 1,
                 enableInfiniteScroll: false,
                 onPageChanged: (index, reason) {

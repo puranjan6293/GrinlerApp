@@ -92,7 +92,7 @@ class AuthController extends StateNotifier<bool> {
       (l) => showSnackBar(context, l.message),
       // ignore: avoid_print
       (r) {
-        showSnackBar(context, 'wellcome');
+        showSnackBar(context, 'welcome');
         Navigator.push(context, HomeView.route());
       },
     );

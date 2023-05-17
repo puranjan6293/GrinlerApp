@@ -50,6 +50,9 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // return Container(
+    //   color: Colors.blue,
+    // );
     final currentUser = ref.watch(currentUserDetailsProvider).value;
     final isLoading = ref.watch(postControllerProvider);
     return Scaffold(

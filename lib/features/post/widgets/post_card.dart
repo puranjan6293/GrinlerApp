@@ -29,7 +29,9 @@ class PostCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUser = ref.watch(currentUserDetailsProvider).value;
     return currentUser == null
-        ? const SizedBox()
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
         : ref.watch(UserDetailsProvider(post.uid)).when(
               data: (user) {
                 return GestureDetector(
