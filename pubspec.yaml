@@ -43,6 +43,7 @@ dependencies:
   image_picker: ^0.8.6+1
   like_button: ^2.0.5
   timeago: ^3.3.0
+  restart_app: ^1.1.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0

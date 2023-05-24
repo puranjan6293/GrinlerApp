@@ -11,7 +11,7 @@ final authAPIProvider = Provider((ref) {
 });
 
 // signup, get user account -> Account
-// access user related data -> model.Account
+// access user related data -> model.User
 
 abstract class IAuthAPI {
   FutureEither<model.Account> signUp({

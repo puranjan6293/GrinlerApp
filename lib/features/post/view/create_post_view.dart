@@ -11,6 +11,8 @@ import 'package:grinler/features/auth/controllers/auth_controller.dart';
 import 'package:grinler/features/post/controller/post_controller.dart';
 import 'package:grinler/theme/pallete.dart';
 
+import '../../home/view/home_view.dart';
+
 class CreatePostScreen extends ConsumerStatefulWidget {
   static route() => MaterialPageRoute(
         builder: (context) => const CreatePostScreen(),
@@ -58,10 +60,12 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.close, size: 30)),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomeView()));
+          },
+          icon: const Icon(Icons.close, size: 30),
+        ),
         actions: [
           RoundedButton(
             onTap: sharePost,

@@ -4,6 +4,7 @@ import 'package:grinler/common/common.dart';
 import 'package:grinler/constants/constants.dart';
 // import 'package:grinler/features/auth/controller/auth_controller.dart';
 import 'package:grinler/features/auth/controllers/auth_controller.dart';
+import 'package:grinler/features/home/view/home_view.dart';
 import 'package:grinler/features/notifications/controller/notification_controller.dart';
 import 'package:grinler/features/notifications/widget/notification_tile.dart';
 import 'package:grinler/model/notification_model.dart' as model;
@@ -17,6 +18,17 @@ class NotificationView extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton.filled(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeView(),
+              ),
+            );
+          },
+          icon: const Icon(Icons.close, size: 30),
+        ),
         title: const Text('Notifications'),
       ),
       body: currentUser == null

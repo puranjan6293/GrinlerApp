@@ -28,14 +28,10 @@ class _HomeViewState extends State<HomeView> {
 
   void onCreatePost() {
     Navigator.push(context, CreatePostScreen.route());
+    setState(() {
+      _page = 0;
+    });
   }
-
-  //added by puranjan
-  // @override
-  // void initState() {
-  //   setState(() {});
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +41,7 @@ class _HomeViewState extends State<HomeView> {
         index: _page,
         children: UIConstants.bottomTabBarPages,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: onCreatePost,
-        child: const Icon(
-          Icons.add,
-          color: Pallete.whiteColor,
-          size: 28,
-        ),
-      ),
+      //!
       drawer: const SideDrawer(),
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: _page,
@@ -77,7 +66,7 @@ class _HomeViewState extends State<HomeView> {
           const BottomNavigationBarItem(
             icon: Icon(
               Icons.add_circle_outline_sharp,
-              color: Colors.white,
+              color: Pallete.whiteColor,
             ),
           ),
           BottomNavigationBarItem(

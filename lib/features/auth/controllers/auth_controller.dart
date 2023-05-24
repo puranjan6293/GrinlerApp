@@ -19,16 +19,16 @@ final authControllerProvider =
 
 final currentUserDetailsProvider = FutureProvider((ref) async {
   final currentUserId = ref.watch(currentUserAccountProvider).value!.$id;
-  final userDetails = ref.watch(UserDetailsProvider(currentUserId));
+  final userDetails = ref.watch(userDetailsProvider(currentUserId));
   return userDetails.value;
 });
 
-final UserDetailsProvider = FutureProvider.family((ref, String uid) async {
+final userDetailsProvider = FutureProvider.family((ref, String uid) async {
   final authController = ref.watch(authControllerProvider.notifier);
   return authController.getUserData(uid);
 });
 
-final currentUserAccountProvider = FutureProvider((ref) {
+final currentUserAccountProvider = FutureProvider((ref) async {
   final authController = ref.watch(authControllerProvider.notifier);
   return authController.currentUser();
 });
@@ -91,8 +91,20 @@ class AuthController extends StateNotifier<bool> {
     res.fold(
       (l) => showSnackBar(context, l.message),
       // ignore: avoid_print
-      (r) {
+      (r) async {
         showSnackBar(context, 'welcome');
+        final currentUser = await _authAPI.currentUserAccount();
+        // if (currentUser != null) {
+        //   try {
+        //     await getUserData(currentUser.$id);
+        //     Navigator.push(context, HomeView.route());
+        //   } catch (e) {
+        //     showSnackBar(context, 'Failed to retrieve user data');
+        //   }
+        // } else {
+        //   showSnackBar(context, 'Current user account not found');
+        // }
+        getUserData(currentUser!.$id);
         Navigator.push(context, HomeView.route());
       },
     );

@@ -28,11 +28,12 @@ class PostCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUser = ref.watch(currentUserDetailsProvider).value;
+
     return currentUser == null
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : ref.watch(UserDetailsProvider(post.uid)).when(
+        : ref.watch(userDetailsProvider(post.uid)).when(
               data: (user) {
                 return GestureDetector(
                   onTap: () {
@@ -124,7 +125,7 @@ class PostCard extends ConsumerWidget {
                                       .when(
                                         data: (repliedToPost) {
                                           final replyingToUser = ref
-                                              .watch(UserDetailsProvider(
+                                              .watch(userDetailsProvider(
                                                   repliedToPost.uid))
                                               .value;
                                           return RichText(
